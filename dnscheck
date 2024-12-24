@@ -1,0 +1,21 @@
+import subprocess
+
+def ping(host):
+    """Ping a host and return True if it responds."""
+    try:
+        output = subprocess.check_output(['ping', '-c', '1', host], stderr=subprocess.STDOUT)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+def check_dns_servers():
+    """Check if Google's DNS servers are available."""
+    google_dns_servers = ['8.8.8.8', '8.8.4.4']
+    for server in google_dns_servers:
+        if ping(server):
+            print(f"DNS server {server} is available.")
+        else:
+            print(f"DNS server {server} is not available.")
+
+if __name__ == "__main__":
+    check_dns_servers()
